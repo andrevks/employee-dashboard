@@ -1,10 +1,17 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from 'mongoose'
 
 export interface IEmployee extends Document {
-  name: string;
-  position: string;
-  department: string;
-  hireDate: Date;
+  name: string
+  position: string
+  department: string
+  hireDate: Date
+}
+
+export interface IEmployeeData {
+  name: string
+  position: string
+  department: string
+  hireDate: Date
 }
 
 const EmployeeSchema: Schema = new Schema({
@@ -12,7 +19,6 @@ const EmployeeSchema: Schema = new Schema({
   position: { type: String, required: true },
   department: { type: String, required: true },
   hireDate: { type: Date, required: true },
-});
+})
 
-export default mongoose.model<IEmployee>('Employee', EmployeeSchema);
-  
+export default mongoose.model<IEmployee>('Employee', EmployeeSchema)
