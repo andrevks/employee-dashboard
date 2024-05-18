@@ -4,11 +4,12 @@ import { CustomTable } from '@/components/CustomTable';
 import { DataTable } from '@/components/DataTable';
 import { DeleteEmployeeModal } from '@/components/Modals/DeleteEmployeeModal';
 import { deleteEmployeeById, EmployeeResponse, getEmployees } from '@/lib/services/employee';
-import { Button, Container, Flex, Spacer, Text } from '@chakra-ui/react';
+import { Button, Container, Flex, Spacer, Text, Input } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { createColumnHelper } from "@tanstack/react-table";
+import { searchTableFilter } from '@/utils/searchTableFilter';
 
 
 const columnHelper = createColumnHelper<EmployeeResponse>();
@@ -34,12 +35,10 @@ export default function Home() {
   const [removeEmployeeId, setRemoveEmployeeId] = useState<
     string | null
   >(null);
-
+  const [searchValue, setSearchValue] = useState("")
   const [data, setData] = useState<EmployeeResponse[]>([])
 
-  console.log(data)
-
-  const updatedEmployees = async ()=>{
+  const updatedEmployees = async () => {
     const response = await getEmployees()
     setData(response)
   }
@@ -54,7 +53,7 @@ export default function Home() {
   }
 
   const deleteValue = async () => {
-    if(!removeEmployeeId){
+    if (!removeEmployeeId) {
       return
     }
 
@@ -66,23 +65,29 @@ export default function Home() {
       console.error(error)
     }
   }
-  
+
+  const filteredResult = searchTableFilter(data, searchValue, ["name", "department", "position"])
+
+  const actualList = searchValue.length > 0 ? filteredResult : data
 
   return (
     <Container maxW='6xl' py={10}>
       <DeleteEmployeeModal isOpen={!!removeEmployeeId} onClose={() => setRemoveEmployeeId(null)} onConfirm={deleteValue} />
-      <Flex wrap={'wrap'} rowGap={2} columnGap={2} alignItems={'center'} mb={8}>
+      <Flex wrap={'wrap'} justify={'space-between'} rowGap={2} columnGap={2} alignItems={'center'} mb={8}>
         <Text fontSize={'2xl'} fontWeight={'bold'}>
           Funcionários
         </Text>
-        <Spacer />
-        <Link href='/employee'>
-          <Button size='md' colorScheme='blue'>Adicionar</Button>
-        </Link>
+        <Flex justifyContent={"flex-end"} flex={{ md: 1 }} rowGap={2} columnGap={2} alignItems={'center'}>
+          <Input maxW={"md"}
+            name='source' placeholder='pesquise aqui' onChange={(e) => setSearchValue(e.target.value)} value={searchValue} />
+          <Link href='/employee'>
+            <Button size='md' colorScheme='blue'>Adicionar</Button>
+          </Link>
+        </Flex>
       </Flex>
-      <DataTable 
+      <DataTable
         columns={columns}
-        data={data}
+        data={actualList}
         editValue={(id) => editValue(id)}
         removeValue={(id) => setRemoveEmployeeId(id)}
       />

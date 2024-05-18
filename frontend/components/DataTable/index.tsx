@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Table, Thead, Tbody, Tr, Th, Td, chakra, Button, Icon } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, chakra, Button, Icon, TableContainer } from "@chakra-ui/react";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import {
   useReactTable,
@@ -37,6 +37,7 @@ export function DataTable<Data extends object>({
   });
 
   return (
+    <TableContainer border={'1px'} borderRadius={'lg'} borderColor={'gray.200'} >
     <Table>
       <Thead>
         {table.getHeaderGroups().map((headerGroup) => (
@@ -115,5 +116,6 @@ export function DataTable<Data extends object>({
         ))}
       </Tbody>
     </Table>
+    </TableContainer>
   );
 }

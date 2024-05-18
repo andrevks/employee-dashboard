@@ -18,7 +18,6 @@ export default function Employee() {
 
   const onSubmit = async (data: EmployeeFormData) => {
     try {
-      console.log(data) 
       await postEmployees(data)
       reset()
       replace('/')

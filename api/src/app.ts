@@ -16,19 +16,4 @@ app.use(express.json())
 // Routes
 app.use('/api', appRoutes)
 
-app.use((error: Error, req: Request, res: Response) => {
-  if (error instanceof ZodError) {
-    return res.status(400).send({
-      message: 'Validation error.',
-      issues: error.format(),
-    })
-  }
-
-  if (process.env.NODE_ENV !== 'production') {
-    console.error(error)
-  }
-
-  return res.status(500).send({ message: 'Internal server error.' })
-})
-
 export default app
