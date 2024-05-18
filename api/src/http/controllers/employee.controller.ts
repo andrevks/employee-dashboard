@@ -6,6 +6,7 @@ import { makeUpdateEmployeeUseCase } from '@/use-cases/factories/make-update-emp
 import { makeGetEmployeeByIdUseCase } from '@/use-cases/factories/make-get-employee-by-id-use-case'
 import { makeGetEmployeesUseCase } from '@/use-cases/factories/make-get-employees-use-case'
 import { makeDeleteEmployeeUseCase } from '@/use-cases/factories/make-delete-employee-use-case'
+import { toEmployeeDTO } from '../../dto/employee-dto'
 
 const employeeSchema = z.object({
   name: z.string().min(1),
@@ -21,7 +22,7 @@ export const getEmployees = async (req: Request, res: Response) => {
   try {
     const makeGetEmployessUseCase = makeGetEmployeesUseCase()
     const { employees } = await makeGetEmployessUseCase.execute()
-    res.status(200).json(employees)
+    res.status(200).json(employees.map(toEmployeeDTO))
   } catch (error) {
     res.status(500).json({ message: 'Error fetching employees' })
   }
@@ -33,7 +34,7 @@ export const getEmployeeById = async (req: Request, res: Response) => {
     const { employee } = await getEmployeeByIdUseCase.execute({
       id: req.params.id,
     })
-    res.status(200).json(employee)
+    res.status(200).json(toEmployeeDTO(employee))
   } catch (error) {
     if (error instanceof EmployeeNotFoundError) {
       return res.status(404).json({ message: error.message })
@@ -47,7 +48,7 @@ export const createEmployee = async (req: Request, res: Response) => {
     const validatedData = employeeSchema.parse(req.body)
     const createEmployeeUseCase = makeCreateEmployeeUseCase()
     const { employee } = await createEmployeeUseCase.execute(validatedData)
-    res.status(201).json(employee)
+    res.status(201).json(toEmployeeDTO(employee))
   } catch (error) {
     if (error instanceof ZodError) {
       return res
@@ -66,7 +67,7 @@ export const updateEmployee = async (req: Request, res: Response) => {
       id: req.params.id,
       ...validatedData,
     })
-    res.status(200).json(employee)
+    res.status(200).json(toEmployeeDTO(employee))
   } catch (error) {
     if (error instanceof ZodError) {
       return res
@@ -83,10 +84,10 @@ export const updateEmployee = async (req: Request, res: Response) => {
 export const deleteEmployee = async (req: Request, res: Response) => {
   try {
     const deleteEmployeeUseCase = makeDeleteEmployeeUseCase()
-    const { message } = await deleteEmployeeUseCase.execute({
+    await deleteEmployeeUseCase.execute({
       id: req.params.id,
     })
-    res.status(200).json({ message })
+    res.status(204).send()
   } catch (error) {
     if (error instanceof EmployeeNotFoundError) {
       return res.status(404).json({ message: error.message })

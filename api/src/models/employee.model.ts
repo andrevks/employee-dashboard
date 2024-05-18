@@ -8,6 +8,7 @@ export interface IEmployee extends Document {
 }
 
 export interface IEmployeeData {
+  _id?: string
   name: string
   position: string
   department: string

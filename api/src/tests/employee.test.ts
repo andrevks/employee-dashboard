@@ -34,6 +34,7 @@ describe('Employee API', () => {
     expect(res.status).toBe(201)
     expect(res.body).toHaveProperty('_id')
     expect(res.body.name).toBe('Rafael Rolim')
+    expect(res.body.hireDate).toBe('2023-01-01')
   })
 
   it('should fetch all employees', async () => {
@@ -49,6 +50,7 @@ describe('Employee API', () => {
     expect(res.status).toBe(200)
     expect(res.body.length).toBe(1)
     expect(res.body[0].name).toBe('Rafael Rolim')
+    expect(res.body[0].hireDate).toBe('2023-01-01')
   })
 
   it('should fetch a single employee by ID', async () => {
@@ -63,6 +65,7 @@ describe('Employee API', () => {
 
     expect(res.status).toBe(200)
     expect(res.body.name).toBe('Rafael Rolim')
+    expect(res.body.hireDate).toBe('2023-01-01')
   })
 
   it('should update an employee by ID', async () => {
@@ -77,11 +80,12 @@ describe('Employee API', () => {
       name: 'Jane Doe',
       position: 'Developer',
       department: 'Engineering',
-      hireDate: '2023-01-01',
+      hireDate: '2023-03-01',
     })
 
     expect(res.status).toBe(200)
     expect(res.body.name).toBe('Jane Doe')
+    expect(res.body.hireDate).toBe('2023-03-01')
   })
 
   it('should delete an employee by ID', async () => {
@@ -94,8 +98,7 @@ describe('Employee API', () => {
 
     const res = await request(app).delete(`/api/employees/${employee._id}`)
 
-    expect(res.status).toBe(200)
-    expect(res.body.message).toBe('Employee deleted')
+    expect(res.status).toBe(204)
   })
 
   it('should return 404 when fetching a non-existing employee', async () => {
