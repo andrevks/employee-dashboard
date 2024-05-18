@@ -1,10 +1,9 @@
 'use client'
 
-import { CustomTable } from '@/components/CustomTable';
 import { DataTable } from '@/components/DataTable';
 import { DeleteEmployeeModal } from '@/components/Modals/DeleteEmployeeModal';
 import { deleteEmployeeById, EmployeeResponse, getEmployees } from '@/lib/services/employee';
-import { Button, Container, Flex, Spacer, Text, Input } from '@chakra-ui/react';
+import { Button, Container, Flex, Text, Input } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
