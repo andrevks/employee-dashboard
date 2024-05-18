@@ -8,7 +8,9 @@
   "plugins": [],
   "rules": {
     "@next/next/no-html-link-for-pages": "off",
-    "react/jsx-key": "off"
+    "react/jsx-key": "off",
+    "tailwindcss/no-custom-classname": "off",
+    "tailwindcss/classnames-order": "error"
   },
   "settings": {
     "next": {

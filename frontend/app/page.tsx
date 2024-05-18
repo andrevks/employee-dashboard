@@ -1,95 +1,124 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
+
+import { CustomTable } from '@/components/CustomTable';
+import { DeleteEmployeeModal } from '@/components/Modals/DeleteEmployeeModal';
+import { Button, Container, Flex, Spacer, Text } from '@chakra-ui/react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
+const funcionarios = [
+  {
+    id: 1,
+    nome: "Ana Silva",
+    cargo: "Desenvolvedora Front-end",
+    departamento: "Tecnologia"
+  },
+  {
+    id: 2,
+    nome: "Carlos Souza",
+    cargo: "Gerente de Projetos",
+    departamento: "Gestão"
+  },
+  {
+    id: 3,
+    nome: "Mariana Oliveira",
+    cargo: "Analista de Dados",
+    departamento: "Data Science"
+  },
+  {
+    id: 4,
+    nome: "Pedro Martins",
+    cargo: "Designer Gráfico",
+    departamento: "Marketing"
+  },
+  {
+    id: 5,
+    nome: "Fernanda Costa",
+    cargo: "Engenheira de Software",
+    departamento: "Tecnologia"
+  },
+  {
+    id: 6,
+    nome: "Lucas Lima",
+    cargo: "Especialista em SEO",
+    departamento: "Marketing"
+  },
+  {
+    id: 7,
+    nome: "Beatriz Mendes",
+    cargo: "Coordenadora de RH",
+    departamento: "Recursos Humanos"
+  },
+  {
+    id: 8,
+    nome: "Rafael Almeida",
+    cargo: "Contador",
+    departamento: "Financeiro"
+  },
+  {
+    id: 9,
+    nome: "Juliana Ferreira",
+    cargo: "Assistente Administrativo",
+    departamento: "Administrativo"
+  },
+  {
+    id: 10,
+    nome: "Gabriel Santos",
+    cargo: "Desenvolvedor Back-end",
+    departamento: "Tecnologia"
+  }
+];
 
 export default function Home() {
+  const { push } = useRouter();
+  const [removeEmployeeId, setRemoveEmployeeId] = useState<
+    number | null
+  >(null);
+
+  const convertedFuncionarios =
+    funcionarios.map((funcionario) => {
+      return {
+        ['id']: funcionario.id,
+        ['Nome']: funcionario.nome,
+        ['Cargo']: funcionario.cargo,
+        ['Departamento']: funcionario.departamento
+      }
+    })
+
+  const editValue = (id: number) => {
+    push(`/employee/${id}`)
+  }
+
+  const deleteValue = () => {
+    setRemoveEmployeeId(null)
+  }
+
+  const openModal = (id: number) => {
+    const findEmployee = funcionarios.findIndex((funcionario) => funcionario.id === id)
+    if (!findEmployee && typeof findEmployee !== 'number') return
+
+    setRemoveEmployeeId(id)
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <Container maxW='6xl' py={10}>
+      <DeleteEmployeeModal isOpen={!!removeEmployeeId} onClose={() => setRemoveEmployeeId(null)} onConfirm={deleteValue} />
+      <Flex wrap={'wrap'} rowGap={2} columnGap={2} alignItems={'center'} mb={8}>
+        <Text fontSize={'2xl'} fontWeight={'bold'}>
+          Funcionários
+        </Text>
+        <Spacer />
+        <Link href='/employee'>
+          <Button size='md' colorScheme='blue'>Adicionar</Button>
+        </Link>
+      </Flex>
+      <CustomTable
+        hiddenColumn='id'
+        editValue={(id) => editValue(id)}
+        removeValue={(id) => openModal(id)}
+        array={convertedFuncionarios}
+      />
+    </Container>
   );
 }
