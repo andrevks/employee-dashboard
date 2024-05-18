@@ -54,9 +54,11 @@ Caso o script de configuração automática falhe, siga os passos abaixo:
 
 ### Backend
 
-
 1. Instale as dependências:
+
     ```bash
+     # caso ainda não tenha instalado faça um git clone antes: git clone https://github.com/andrevks/employee-dashboard.git 
+     cd employee-dashboard/api
      yarn install
      # ou npm install
     ```
@@ -109,15 +111,15 @@ Caso o script de configuração automática falhe, siga os passos abaixo:
 Caso encontre problemas para configurar o MongoDB, você pode usar Docker Compose:
 
 1. Instale o Docker e o Docker Compose.
-
-2. Execute o Docker Compose:
-    ```bash
-     docker-compose up -d
-    ```
-3. Atualize o arquivo `.env` do backend com a URI do MongoDB:
+2. Atualize o arquivo `.env` do backend com a URI do MongoDB:
     ```env
     MONGO_URI=mongodb://root:example@localhost:27017
     ```
+3. Execute o Docker Compose:
+    ```bash
+     docker-compose up -d
+    ```
+
     
 ## 🛠 Tecnologias
 
