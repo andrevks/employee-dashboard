@@ -60,7 +60,12 @@ then
     sleep 10
 
     # Atualizar o .env com a URI do MongoDB local
-    sed -i 's|MONGO_URI=.*|MONGO_URI=mongodb://root:example@localhost:27017|' .env
+    echo "Atualizando o .env com a URI do MongoDB local..."
+    if grep -q '^MONGO_URI=' .env; then
+        sed -i '' 's|^MONGO_URI=.*|MONGO_URI=mongodb://root:example@localhost:27017|' .env
+    else
+        echo 'MONGO_URI=mongodb://root:example@localhost:27017' >> .env
+    fi
 
     # Iniciar o backend novamente
     echo "Reiniciando backend..."
