@@ -1,39 +1,162 @@
-# rbr-digital-employee-dashboard
+# employee-dashboard
 
-RBR Digital Employee Dashboard
+<h1 align="center" style="font-family: 'Montserrat', sans-serif; font-size: 72px; color: #3498DB;">
+  Employee Dashboard
+</h1>
 
-## Backend
-### RFs (Requisitos funcionais)
-- [] Implement the GET /api/employees endpoint to retrieve all employees.
-- [] Implement the GET /api/employees/:id endpoint to retrieve a single employee by ID.
-- [] Implement the POST /api/employees endpoint to create a new employee.
-- [] Implement the PUT /api/employees/:id endpoint to update an employee by ID.
-- [] Implement the DELETE /api/employees/:id endpoint to delete an employee by ID.
+<p align="center">
+  <a href="#ℹ-descrição">Descrição</a> •
+  <a href="#-como-usar">Como Usar</a> •
+  <a href="#-tecnologias">Tecnologias</a> •
+  <a href="#-testes">Testes</a>
+</p>
 
-### RNs (Regras de negócio)
-- [] Validate employee data before saving to the database.
-- [] Return appropriate HTTP status codes for success and error scenarios.
+<p align="center">
+  <img src="github/app.png" alt="Aplicação em desktop" width="100%"></img>
+</p>
 
-### RNFs (Requisitos não-funcionais)
-- [] Use TypeScript for type safety.
-- [] Ensure the database connection is established using Mongoose.
-- [] Handle errors appropriately and log them.
+## ℹ Descrição
 
-## Frontend
-### RFs (Requisitos funcionais)
-- [] Display a table of employees with columns for name, position, department, and actions (edit/delete).
-- [] Include a button to add a new employee.
-- [] Implement sorting and search functionality in the employee list.
-- [] Create a form to add a new employee with fields for name, position, department, and hire date.
-- [] Create a form to edit an existing employee's details with pre-filled current details.
-- [] Validate the form fields before submission.
+> Esta aplicação full-stack consiste em um dashboard administrativo para gerenciar uma lista de funcionários. A aplicação foi construída usando **React**, **Next.js**, **Chakra UI**, **Node.js**, **Express.js** e **MongoDB**.
 
-### RNs (Regras de negócio)
-- [] Ensure form validation before submitting data to the backend.
-- [] Ensure the application is responsive.
+A aplicação permite:
+- Criar, ler, atualizar e excluir registros de funcionários.
+- Ordenar e buscar funcionários na lista.
 
-### RNFs (Requisitos não-funcionais)
-- [] Use TypeScript for type safety.
-- [] Use Chakra UI for styling and UI components.
-- [] Ensure the application is responsive and works well on various screen sizes.
-- [] Write tests to cover the main functionalities using Vitest.
+## 🖥 Como Usar
+
+### Pré-requisitos
+
+- Node.js v20 ou superior
+- Yarn ou npm
+- MongoDB Atlas URI ou Docker Compose para MongoDB
+
+### Configuração Automática
+
+1. Clone o repositório e acesse a pasta raiz:
+    ```bash
+    $ git clone https://github.com/andrevks/employee-dashboard.git
+    $ cd employee-dashboard
+    ```
+
+2. Dê permissão para executar o script:
+    ```bash
+    $ chmod +x setup.sh
+    ```
+
+3. Execute o script de configuração:
+    ```bash
+    $ ./setup.sh
+    ```
+
+### Configuração Manual
+
+Caso o script de configuração automática falhe, siga os passos abaixo:
+
+### Backend
+
+1. Clone o repositório e acesse a pasta `api`:
+    ```bash
+    $ git clone https://github.com/andrevks/employee-dashboard.git
+    ou 
+    $ git clone git@github.com:andrevks/employee-dashboard.git
+    $ cd employee-dashboard/api
+    ```
+
+2. Instale as dependências:
+    ```bash
+    $ yarn install
+    # ou
+    $ npm install
+    ```
+
+3. Configure o arquivo `.env`:
+    ```bash
+    $ cp .env.example .env
+    # Edite o arquivo .env e adicione a URI para o banco
+    ```
+
+4. Execute a aplicação:
+    ```bash
+    $ yarn dev
+    # ou
+    $ npm run dev
+    ```
+
+5. Para rodar os testes end-to-end:
+    ```bash
+    $ yarn test
+    # ou
+    $ npm run test
+    ```
+
+### Frontend
+
+1. Acesse a pasta `frontend`:
+    ```bash
+    $ cd ../frontend
+    ```
+
+2. Instale as dependências:
+    ```bash
+    $ yarn install
+    # ou
+    $ npm install
+    ```
+
+3. Configure o arquivo `.env`:
+    ```bash
+    $ cp .env.example .env
+    # Certifique-se de que o URL do backend está correto 
+    ```
+
+4. Execute a aplicação:
+    ```bash
+    $ yarn dev
+    # ou
+    $ npm run dev
+    ```
+
+### Executando com Docker Compose
+
+Caso encontre problemas para configurar o MongoDB, você pode usar Docker Compose:
+
+1. Instale o Docker e o Docker Compose.
+
+2. Execute o Docker Compose:
+    ```bash
+    $ docker-compose up -d
+    ```
+3. Atualize o arquivo `.env` do backend com a URI do MongoDB:
+    ```env
+    MONGO_URI=mongodb://root:example@localhost:27017
+    ```
+    
+## 🛠 Tecnologias
+
+### Backend:
+- [**Node.js**](https://nodejs.org/)
+- [**Express.js**](https://expressjs.com/)
+- [**Mongoose**](https://mongoosejs.com/)
+- [**Zod**](https://zod.dev/)
+
+### Frontend:
+- [**React**](https://reactjs.org/)
+- [**Next.js**](https://nextjs.org/)
+- [**Chakra UI**](https://chakra-ui.com/)
+
+### Testes:
+- [**Vitest**](https://vitest.dev/)
+- [**Supertest**](https://github.com/visionmedia/supertest)
+
+## 🧪 Testes
+
+Para rodar os testes end-to-end no backend:
+```bash
+$ cd api
+$ yarn test
+# ou
+$ npm run test
+```
+
+<p align="center">Feito com 💜 por <a href="https://github.com/andrevks">André Geraldo</a></p>

@@ -1,7 +1,6 @@
-import express, { Request, Response } from 'express'
+import express from 'express'
 import cors from 'cors'
 import appRoutes from './http/routes'
-import { ZodError } from 'zod'
 import connectDB from './lib/db'
 
 const app = express()
