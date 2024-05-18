@@ -25,7 +25,7 @@ A aplicação permite:
 
 - Node.js v20 ou superior
 - Yarn ou npm
-- MongoDB Atlas URI ou Docker Compose para MongoDB
+- MongoDB Atlas URI ou Docker Compose para MongoDB (recomenda-se deixar o docker aberto antes de rodar o script)
 
 ### Clonagem do projeto
 
@@ -46,6 +46,11 @@ A aplicação permite:
 2. Execute o script de configuração:
     ```bash
      ./setup.sh
+    ```
+
+3. Aguarde rodar os commandos e se não tiver nenhum erro, acesse a aplicação:
+    ```bash
+      http://localhost:3000
     ```
 
 ### Configuração Manual
@@ -69,21 +74,21 @@ Caso o script de configuração automática falhe, siga os passos abaixo:
     # Edite o arquivo .env e adicione a URI para o banco caso tenha problemas
     ```
 
-3. Execute a aplicação:
-    ```bash
-     yarn dev
-    # ou npm run dev
-    ```
-
-4. Para rodar os testes end-to-end:
+3. Para rodar os testes end-to-end:
     ```bash
      yarn test
     # ou npm run test
     ```
 
+4. Execute a aplicação:
+    ```bash
+     yarn dev
+    # ou npm run dev
+    ```
+
 ### Frontend
 
-1. Acesse a pasta `frontend`:
+1. Em outro terminal, acesse a pasta `frontend`:
     ```bash
      cd ../frontend
     ```
@@ -104,6 +109,11 @@ Caso o script de configuração automática falhe, siga os passos abaixo:
     ```bash
      yarn dev
     # ou npm run dev
+    ```
+
+5. Aguarde rodar os commandos e se não tiver nenhum erro, acesse a aplicação:
+    ```bash
+      http://localhost:3000
     ```
 
 ### Executando com Docker Compose
