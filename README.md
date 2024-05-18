@@ -11,10 +11,6 @@
   <a href="#-testes">Testes</a>
 </p>
 
-<p align="center">
-  <img src="github/app.png" alt="Aplicação em desktop" width="100%"></img>
-</p>
-
 ## ℹ Descrição
 
 > Esta aplicação full-stack consiste em um dashboard administrativo para gerenciar uma lista de funcionários. A aplicação foi construída usando **React**, **Next.js**, **Chakra UI**, **Node.js**, **Express.js** e **MongoDB**.
@@ -31,22 +27,25 @@ A aplicação permite:
 - Yarn ou npm
 - MongoDB Atlas URI ou Docker Compose para MongoDB
 
-### Configuração Automática
+### Clonagem do projeto
 
 1. Clone o repositório e acesse a pasta raiz:
     ```bash
-    $ git clone https://github.com/andrevks/employee-dashboard.git
-    $ cd employee-dashboard
+     git clone https://github.com/andrevks/employee-dashboard.git
+     # ou git clone git@github.com:andrevks/employee-dashboard.git
+     cd employee-dashboard
     ```
 
-2. Dê permissão para executar o script:
+### Configuração Automática
+
+1. Dê permissão para executar o script:
     ```bash
-    $ chmod +x setup.sh
+     chmod +x setup.sh
     ```
 
-3. Execute o script de configuração:
+2. Execute o script de configuração:
     ```bash
-    $ ./setup.sh
+     ./setup.sh
     ```
 
 ### Configuração Manual
@@ -55,66 +54,54 @@ Caso o script de configuração automática falhe, siga os passos abaixo:
 
 ### Backend
 
-1. Clone o repositório e acesse a pasta `api`:
+
+1. Instale as dependências:
     ```bash
-    $ git clone https://github.com/andrevks/employee-dashboard.git
-    ou 
-    $ git clone git@github.com:andrevks/employee-dashboard.git
-    $ cd employee-dashboard/api
+     yarn install
+     # ou npm install
     ```
 
-2. Instale as dependências:
+2. Configure o arquivo `.env`:
     ```bash
-    $ yarn install
-    # ou
-    $ npm install
+     cp .env.example .env
+    # Edite o arquivo .env e adicione a URI para o banco caso tenha problemas
     ```
 
-3. Configure o arquivo `.env`:
+3. Execute a aplicação:
     ```bash
-    $ cp .env.example .env
-    # Edite o arquivo .env e adicione a URI para o banco
+     yarn dev
+    # ou npm run dev
     ```
 
-4. Execute a aplicação:
+4. Para rodar os testes end-to-end:
     ```bash
-    $ yarn dev
-    # ou
-    $ npm run dev
-    ```
-
-5. Para rodar os testes end-to-end:
-    ```bash
-    $ yarn test
-    # ou
-    $ npm run test
+     yarn test
+    # ou npm run test
     ```
 
 ### Frontend
 
 1. Acesse a pasta `frontend`:
     ```bash
-    $ cd ../frontend
+     cd ../frontend
     ```
 
 2. Instale as dependências:
     ```bash
-    $ yarn install
-    # ou
-    $ npm install
+     yarn install
+    # ou npm install
     ```
 
 3. Configure o arquivo `.env`:
     ```bash
-    $ cp .env.example .env
+     cp .env.example .env
     # Certifique-se de que o URL do backend está correto 
     ```
 
 4. Execute a aplicação:
     ```bash
-    $ yarn dev
-    # ou
-    $ npm run dev
+     yarn dev
+    # ou npm run dev
     ```
 
 ### Executando com Docker Compose
@@ -125,7 +112,7 @@ Caso encontre problemas para configurar o MongoDB, você pode usar Docker Compos
 
 2. Execute o Docker Compose:
     ```bash
-    $ docker-compose up -d
+     docker-compose up -d
     ```
 3. Atualize o arquivo `.env` do backend com a URI do MongoDB:
     ```env
@@ -153,10 +140,10 @@ Caso encontre problemas para configurar o MongoDB, você pode usar Docker Compos
 
 Para rodar os testes end-to-end no backend:
 ```bash
-$ cd api
-$ yarn test
+ cd api
+ yarn test
 # ou
-$ npm run test
+ npm run test
 ```
 
 <p align="center">Feito com 💜 por <a href="https://github.com/andrevks">André Geraldo</a></p>
