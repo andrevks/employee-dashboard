@@ -21,7 +21,6 @@ export const CustomTable: FC<CustomTableProps> = ({
   editValue,
   removeValue,
   hiddenColumn,
-  canview,
   ...props
 }) => {
   const formattedArray: any[] = hiddenColumn
@@ -40,7 +39,7 @@ export const CustomTable: FC<CustomTableProps> = ({
     }, [] as any[])
     : array;
 
-  const thsNames = Object.keys(formattedArray[0]);
+  const thsNames = formattedArray.length > 0 ? Object?.keys(formattedArray[0]) : [];
 
   const ths = (
     <Tr>

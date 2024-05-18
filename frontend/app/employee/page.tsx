@@ -1,9 +1,11 @@
 'use client'
 import { EmployeeForm } from '@/components/Forms/EmployeeForm';
 import { EmployeeFormData } from '@/components/Forms/EmployeeForm/types';
+import { postEmployees } from '@/lib/services/employee';
 import { employeeSchema } from '@/lib/validations/employe';
 import { Container, Text } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 
@@ -12,10 +14,17 @@ export default function Employee() {
     resolver: zodResolver(employeeSchema),
   })
 
-  const onSubmit = (data: EmployeeFormData) => {
-    console.log(data)
+  const { replace } = useRouter()
 
-    reset()
+  const onSubmit = async (data: EmployeeFormData) => {
+    try {
+      console.log(data) 
+      await postEmployees(data)
+      reset()
+      replace('/')
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   return (

@@ -2,8 +2,7 @@ import { TableContainerProps } from '@chakra-ui/react';
 
 export interface CustomTableProps extends TableContainerProps {
   array: any[];
-  editValue: (id: number) => void;
-  removeValue: (id: number) => void;
+  editValue: (id: string) => void;
+  removeValue: (id: string) => void;
   hiddenColumn?: string;
-  canview?: (id: number) => void;
 }

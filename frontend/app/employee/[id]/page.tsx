@@ -2,10 +2,13 @@
 
 import { EmployeeForm } from '@/components/Forms/EmployeeForm';
 import { EmployeeFormData } from '@/components/Forms/EmployeeForm/types';
+import { NotFoundEmployeeModal } from '@/components/Modals/NotFoundEmployeeModal';
+import { getEmployeeById, putEmployee } from '@/lib/services/employee';
 import { employeeSchema } from '@/lib/validations/employe';
-import { Container, Flex, Spacer, Text } from '@chakra-ui/react';
+import { Container, Text } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 interface EmployeeByIdProps {
@@ -21,14 +24,39 @@ export default function EmployeeById({
   const { register, formState: { errors }, handleSubmit, reset } = useForm<EmployeeFormData>({
     resolver: zodResolver(employeeSchema),
   })
+  const [modalError, setModalError] = useState(false)
 
-  const onSubmit = (data: EmployeeFormData) => {
-    console.log(data)
 
-    reset()
+  const onSubmit = async (data: EmployeeFormData) => {
+    try {
+
+      await putEmployee({
+        ...data,
+        _id: id
+      })
+      reset()
+      replace('/')
+    } catch (error) {
+      
+    }
+
+
   }
 
-  if (!id || !id.replace(/[^0-9]+/g, '')) {
+  const getEmployeeID = async () => {
+    try {
+      const response = await getEmployeeById(id)
+      reset(response)
+    } catch (error) {
+      setModalError(true)
+    }
+
+  }
+  useEffect(() => {
+    getEmployeeID()
+  }, [])
+
+  if (!id) {
     replace('/')
     return
   }
@@ -45,6 +73,15 @@ export default function EmployeeById({
         errors={errors}
         handleSubmit={handleSubmit}
         submitText="Cadastrar"
+      />
+
+      <NotFoundEmployeeModal
+       isOpen={modalError}
+       onClose={() => {
+        setModalError(false)
+        replace('/')
+       }}
+       onConfirm={() =>replace('/employee') }
       />
     </Container>
   );
